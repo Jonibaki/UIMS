@@ -44,7 +44,7 @@ public class Product {
 
     @Override
     public String toString() {
-        return "id:" + pId + " Product name:" + product_name + " category:" + category;
+        return "pId:" + pId + " Product name:" + product_name + " category:" + category;
     }
 
     @Override
@@ -71,15 +71,15 @@ public class Product {
                 return false;
         } else if (!getProduct_name().equals(other.getProduct_name()))
             return false;
-        if (pId == null) {
-            if (other.pId != null)
+        if (getId() == null) {
+            if (other.getId() != null)
                 return false;
-        } else if (!pId.equals(other.pId))
+        } else if (!getId().equals(other.getId()))
             return false;
-        if (category == null) {
-            if (other.category != null)
+        if (getCategory() == null) {
+            if (other.getCategory() != null)
                 return false;
-        } else if (!category.equals(other.category))
+        } else if (!getCategory().equals(other.getCategory()))
             return false;
         return true;
     }

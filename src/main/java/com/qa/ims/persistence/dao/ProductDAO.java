@@ -50,7 +50,7 @@ public class ProductDAO implements Dao<Product> {
     public Product readLatest() {
         try (Connection connection = DBUtils.getInstance().getConnection();
              Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery("SELECT * FROM products ORDER BY id DESC LIMIT 1");) {
+             ResultSet resultSet = statement.executeQuery("SELECT * FROM products ORDER BY pId DESC LIMIT 1");) {
             resultSet.next();
             return modelFromResultSet(resultSet);
         } catch (Exception e) {
@@ -82,7 +82,7 @@ public class ProductDAO implements Dao<Product> {
     public Product readProduct(Long id) {
         try (Connection connection = DBUtils.getInstance().getConnection();
              Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery("SELECT * FROM products where id = " + id);) {
+             ResultSet resultSet = statement.executeQuery("SELECT * FROM products where pId = " + id);) {
             resultSet.next();
             return modelFromResultSet(resultSet);
         } catch (Exception e) {
@@ -103,8 +103,8 @@ public class ProductDAO implements Dao<Product> {
     public Product update(Product product) {
         try (Connection connection = DBUtils.getInstance().getConnection();
              Statement statement = connection.createStatement();) {
-            statement.executeUpdate("update products set product_name ='" + product.getProduct_name() + "', surname ='"
-                    + product.getCategory() + "' where id =" + product.getId());
+            statement.executeUpdate("update products set product_name ='" + product.getProduct_name() + "', category ='"
+                    + product.getCategory() + "' where pId =" + product.getId());
             return readProduct(product.getId());
         } catch (Exception e) {
             LOGGER.debug(e);
@@ -122,7 +122,7 @@ public class ProductDAO implements Dao<Product> {
     public int delete(long pId) {
         try (Connection connection = DBUtils.getInstance().getConnection();
              Statement statement = connection.createStatement();) {
-            return statement.executeUpdate("delete from products where id = " + pId);
+            return statement.executeUpdate("delete from products where pId = " + pId);
         } catch (Exception e) {
             LOGGER.debug(e);
             LOGGER.error(e.getMessage());
