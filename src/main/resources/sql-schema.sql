@@ -17,7 +17,9 @@ CREATE TABLE IF NOT EXISTS `user_inventory_system`.`products` (
 );
 CREATE TABLE IF NOT EXISTS `user_inventory_system`.`orders` (
     `orderId` INT(11) NOT NULL AUTO_INCREMENT,
-    `customerID` INT (11),
-    `pId` INT (11),
-    PRIMARY KEY (`orderId`)
+    `customerId` INT(11) NOT NULL,
+    `pId` INT(11) NOT NULL,
+    PRIMARY KEY (`orderId`),
+    foreign key (`customerId`) references customers (`id`),
+    foreign key (`pId`) references products (`pId`)
 );
