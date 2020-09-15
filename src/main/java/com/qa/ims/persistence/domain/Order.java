@@ -1,10 +1,16 @@
 package com.qa.ims.persistence.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Order {
 
     private Long orderId;
     private Long pId;
     private Long customerId;
+    private double price;
+    private String productName;
+    private List<Product> products = new ArrayList<Product>();
 
     public Order(Long pId, Long customerId) {
         this.setProductId(pId);
@@ -16,7 +22,12 @@ public class Order {
         this.setProductId(pId);
         this.setCustomerId(customerId);
     }
-
+    public Order (Long orderId, Long pId, String productName, Double price){
+        this.setId(orderId);
+        this.setProductId(pId);
+        this.productName =productName;
+        this.price = price;
+    }
     public Long getId() {
         return orderId;
     }
@@ -43,7 +54,9 @@ public class Order {
 
     @Override
     public String toString() {
-        return "id:" + orderId + " product Id:" + pId + " customer Id:" + customerId;
+
+        //return "id:" + orderId + " product Id:" + pId + " customer Id:" + customerId;
+        return "id:" + orderId + " product Id:" + pId + " product Name :" + productName+ " price : "+price;
     }
 
     @Override

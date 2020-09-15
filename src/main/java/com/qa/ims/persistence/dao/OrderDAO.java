@@ -7,6 +7,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.qa.ims.persistence.domain.Product;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -24,6 +25,14 @@ public class OrderDAO implements Dao<Order> {
         Long customerId = resultSet.getLong("customerId");
         return new Order(orderId, pId, customerId);
     }
+    public Order modelOne(ResultSet resultSet) throws SQLException {
+        Long orderId = resultSet.getLong("orderId");
+        Long pId = resultSet.getLong("pId");
+        //Long customerId = resultSet.getLong("customerId");
+        String productName = resultSet.getString("product_name");
+        Double price = resultSet.getDouble("price");
+        return new Order(orderId, pId, productName, price);
+    }
 
     /**
      * Reads all orders from the database
@@ -34,10 +43,14 @@ public class OrderDAO implements Dao<Order> {
     public List<Order> readAll() {
         try (Connection connection = DBUtils.getInstance().getConnection();
              Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery("select * from orders");) {
+             //ResultSet resultSet = statement.executeQuery("select * from orders");
+             ResultSet resultSet = statement.executeQuery("select orders.orderId, products.pId, products.product_name, " +
+                     "products.price from orders JOIN products ON orders.orderId= products.pId");
+        )
+       {
             List<Order> orders = new ArrayList<>();
             while (resultSet.next()) {
-                orders.add(modelFromResultSet(resultSet));
+                orders.add(modelOne(resultSet));
             }
             return orders;
         } catch (SQLException e) {
@@ -50,9 +63,9 @@ public class OrderDAO implements Dao<Order> {
     public Order readLatest() {
         try (Connection connection = DBUtils.getInstance().getConnection();
              Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery("SELECT * FROM orders ORDER BY id DESC LIMIT 1");) {
+             ResultSet resultSet = statement.executeQuery("SELECT * FROM orders ORDER BY orderId DESC LIMIT 1");) {
             resultSet.next();
-            return modelFromResultSet(resultSet);
+            return modelOne(resultSet);
         } catch (Exception e) {
             LOGGER.debug(e);
             LOGGER.error(e.getMessage());
@@ -71,6 +84,24 @@ public class OrderDAO implements Dao<Order> {
              Statement statement = connection.createStatement();) {
             statement.executeUpdate("INSERT INTO orders(pId, customerId) values('" + order.getProductId()
                     + "','" + order.getCustomerId() + "')");
+
+
+            Order temp =readLatest();
+            statement.executeUpdate("INSERT INTO orderItems(orderId, pId) values('" + temp.getId()
+                    + "','" + order.getProductId() + "')");
+
+            return temp;
+        } catch (Exception e) {
+            LOGGER.debug(e);
+            LOGGER.error(e.getMessage());
+        }
+        return null;
+    }
+    public Order addItem(Order order) {
+        try (Connection connection = DBUtils.getInstance().getConnection();
+             Statement statement = connection.createStatement();) {
+            statement.executeUpdate("INSERT INTO orderItems(orderId, pId) values('" + order.getId()
+                    + "','" + order.getProductId() + "')");
             return readLatest();
         } catch (Exception e) {
             LOGGER.debug(e);

@@ -24,8 +24,9 @@ CREATE TABLE IF NOT EXISTS `user_inventory_system`.`orders` (
     foreign key (`pId`) references products (`pId`)
 );
 CREATE TABLE IF NOT EXISTS `user_inventory_system`.`orderItems` (
-    `id` INT(11) NOT NULL,
+    `orderId` INT(11) NOT NULL,
     `pId` INT(11),
     `quantity` INT(11),
+    foreign key (`orderId`) references orders (`orderId`),
     foreign key (`pId`) references products (`pId`)
 );
