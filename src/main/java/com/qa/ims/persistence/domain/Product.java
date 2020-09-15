@@ -49,7 +49,7 @@ public class Product {
 
     @Override
     public String toString() {
-        return "pId: " + pId + " product name: " + product_name + " category: " + category + "price: "+ price;
+        return "pId: " + pId + " product: " + product_name + " category: " + category + " price: £"+ price;
     }
 
     @Override
@@ -59,13 +59,13 @@ public class Product {
         result = prime * result + ((product_name == null) ? 0 : product_name.hashCode());
         result = prime * result + ((pId == null) ? 0 : pId.hashCode());
         result = prime * result + ((category == null) ? 0 : category.hashCode());
-        //TODO: ADD condition section for price column
-        //result = prime * result + ((price == 0.0) ? 0 : price.hashCode());
+        result = prime * result + Double.hashCode(price);
         return result;
     }
 
     @Override
     public boolean equals(Object obj) {
+        Double value = price;
         if (this == obj)
             return true;
         if (obj == null)
@@ -88,7 +88,12 @@ public class Product {
                 return false;
         } else if (!getCategory().equals(other.getCategory()))
             return false;
-        //TODO: ADD condition section for price column
+        if (value== null) {
+            Double otherDouble = other.getPrice();
+            if (otherDouble!= null)
+                return false;
+        } else if (!value.equals(other.getPrice()))
+            return false;
         return true;
     }
 
