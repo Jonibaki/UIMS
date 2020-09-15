@@ -7,15 +7,17 @@ public class Product {
     private String category;
     private double price;
 
-    public Product(String product_name, String category) {
+    public Product(String product_name, String category, double price) {
         this.SetProduct_name(product_name);
         this.setCategory(category);
+        this.setPrice(price);
     }
 
-    public Product(Long pId, String product_name, String category) {
+    public Product(Long pId, String product_name, String category, double price) {
         this.setId(pId);
         this.SetProduct_name(product_name);
         this.setCategory(category);
+        this.setPrice(price);
     }
 
     public Long getId() {
@@ -42,9 +44,12 @@ public class Product {
         this.category = category;
     }
 
+    public double getPrice (){ return price;}
+    public void setPrice(double price){this.price =price;}
+
     @Override
     public String toString() {
-        return "pId:" + pId + " Product name:" + product_name + " category:" + category;
+        return "pId: " + pId + " product: " + product_name + " category: " + category + " price: £"+ price;
     }
 
     @Override
@@ -54,11 +59,13 @@ public class Product {
         result = prime * result + ((product_name == null) ? 0 : product_name.hashCode());
         result = prime * result + ((pId == null) ? 0 : pId.hashCode());
         result = prime * result + ((category == null) ? 0 : category.hashCode());
+        result = prime * result + Double.hashCode(price);
         return result;
     }
 
     @Override
     public boolean equals(Object obj) {
+        Double value = price;
         if (this == obj)
             return true;
         if (obj == null)
@@ -80,6 +87,12 @@ public class Product {
             if (other.getCategory() != null)
                 return false;
         } else if (!getCategory().equals(other.getCategory()))
+            return false;
+        if (value== null) {
+            Double otherDouble = other.getPrice();
+            if (otherDouble!= null)
+                return false;
+        } else if (!value.equals(other.getPrice()))
             return false;
         return true;
     }
