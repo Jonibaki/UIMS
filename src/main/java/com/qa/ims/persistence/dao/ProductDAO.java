@@ -22,7 +22,8 @@ public class ProductDAO implements Dao<Product> {
         Long pId = resultSet.getLong("pId");
         String product_name = resultSet.getString("product_name");
         String category = resultSet.getString("category");
-        return new Product(pId, product_name, category);
+        double price = resultSet.getDouble("price");
+        return new Product(pId, product_name, category, price);
     }
 
     /**
@@ -69,8 +70,8 @@ public class ProductDAO implements Dao<Product> {
     public Product create(Product product) {
         try (Connection connection = DBUtils.getInstance().getConnection();
              Statement statement = connection.createStatement();) {
-            statement.executeUpdate("INSERT INTO products (product_name, category) values('" + product.getProduct_name()
-                    + "','" + product.getCategory() + "')");
+            statement.executeUpdate("INSERT INTO products (product_name, category, price) values('" + product.getProduct_name()
+                    + "','" + product.getCategory() + "','"+ product.getPrice()+ "')");
             return readLatest();
         } catch (Exception e) {
             LOGGER.debug(e);
@@ -104,7 +105,7 @@ public class ProductDAO implements Dao<Product> {
         try (Connection connection = DBUtils.getInstance().getConnection();
              Statement statement = connection.createStatement();) {
             statement.executeUpdate("update products set product_name ='" + product.getProduct_name() + "', category ='"
-                    + product.getCategory() + "' where pId =" + product.getId());
+                    + product.getCategory() + "', price ='"+product.getPrice()+ "' where pId =" + product.getId());
             return readProduct(product.getId());
         } catch (Exception e) {
             LOGGER.debug(e);

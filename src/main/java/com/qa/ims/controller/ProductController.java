@@ -47,7 +47,9 @@ public class ProductController implements CrudController<Product> {
         String product_name = utils.getString();
         LOGGER.info("Please enter product category");
         String category = utils.getString();
-        Product product = productDAO.create(new Product(product_name, category));
+        LOGGER.info("Please enter product price");
+        double price = utils.getDouble();
+        Product product = productDAO.create(new Product(product_name, category, price));
         LOGGER.info("Product created");
         return product;
     }
@@ -63,7 +65,9 @@ public class ProductController implements CrudController<Product> {
         String product_name = utils.getString();
         LOGGER.info("Please enter a product category");
         String category = utils.getString();
-        Product product = productDAO.update(new Product(id, product_name, category));
+        LOGGER.info("Please enter a product price");
+        double price = utils.getDouble();
+        Product product = productDAO.update(new Product(id, product_name, category,price));
         LOGGER.info("Product Updated");
         return product;
     }
