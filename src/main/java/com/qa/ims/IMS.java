@@ -11,6 +11,8 @@ import com.qa.ims.persistence.domain.Domain;
 import com.qa.ims.utils.DBUtils;
 import com.qa.ims.utils.Utils;
 
+import java.util.Objects;
+
 public class IMS {
 
 	public static final Logger LOGGER = LogManager.getLogger();
@@ -19,6 +21,7 @@ public class IMS {
 	private final ProductController products;
 	private final OrderController orders;
 	private final Utils utils;
+	private CrudController<?> active = null;
 
 	public IMS() {
 		this.utils = new Utils();
@@ -54,7 +57,7 @@ public class IMS {
 		boolean changeDomain = false;
 		do {
 
-			CrudController<?> active = null;
+			//CrudController<?> active = null;
 			switch (domain) {
 			case CUSTOMER:
 				active = this.customers;
@@ -85,24 +88,52 @@ public class IMS {
 	}
 
 	public void doAction(CrudController<?> crudController, Action action) {
-		switch (action) {
-		case CREATE:
-			crudController.create();
-			break;
-		case READ:
-			crudController.readAll();
-			break;
-		case UPDATE:
-			crudController.update();
-			break;
-		case DELETE:
-			crudController.delete();
-			break;
-		case RETURN:
-			break;
-		default:
-			break;
-		}
+		//TODO: fix the logic here
+	//	if(crudController.equals(orders)){
+			switch (action) {
+				case CREATE:
+					crudController.create();
+					break;
+				case READ:
+					crudController.readAll();
+					break;
+				case UPDATE:
+					crudController.update();
+					break;
+				case DELETE:
+					crudController.delete();
+					break;
+				case ADD:
+					orders.addMoreItem();
+					break;
+				case DELETEITEM:
+					break;
+				case RETURN:
+					break;
+				default:
+					break;
+			}
+
+//		}else{
+//			switch (action) {
+//				case CREATE:
+//					crudController.create();
+//					break;
+//				case READ:
+//					crudController.readAll();
+//					break;
+//				case UPDATE:
+//					crudController.update();
+//					break;
+//				case DELETE:
+//					crudController.delete();
+//					break;
+//				case RETURN:
+//					break;
+//				default:
+//					break;
+//			}
+//		}
 	}
 
 }

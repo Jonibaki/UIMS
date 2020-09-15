@@ -22,16 +22,18 @@ public class OrderDAO implements Dao<Order> {
     public Order modelFromResultSet(ResultSet resultSet) throws SQLException {
         Long orderId = resultSet.getLong("orderId");
         Long pId = resultSet.getLong("pId");
+        Long quantity = resultSet.getLong("quantity");
         Long customerId = resultSet.getLong("customerId");
-        return new Order(orderId, pId, customerId);
+        return new Order(orderId, pId, quantity, customerId);
     }
     public Order modelOne(ResultSet resultSet) throws SQLException {
         Long orderId = resultSet.getLong("orderId");
         Long pId = resultSet.getLong("pId");
         //Long customerId = resultSet.getLong("customerId");
         String productName = resultSet.getString("product_name");
+        Long quantity = resultSet.getLong("quantity");
         Double price = resultSet.getDouble("price");
-        return new Order(orderId, pId, productName, price);
+        return new Order(orderId, pId, productName, quantity,price);
     }
 
     /**
@@ -45,7 +47,7 @@ public class OrderDAO implements Dao<Order> {
              Statement statement = connection.createStatement();
              //ResultSet resultSet = statement.executeQuery("select * from orders");
              ResultSet resultSet = statement.executeQuery("select orders.orderId, products.pId, products.product_name, " +
-                     "products.price from orders JOIN products ON orders.orderId= products.pId");
+                     " orders.quantity, products.price from orders JOIN products ON orders.orderId= products.pId");
         )
        {
             List<Order> orders = new ArrayList<>();
@@ -65,7 +67,7 @@ public class OrderDAO implements Dao<Order> {
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery("SELECT * FROM orders ORDER BY orderId DESC LIMIT 1");) {
             resultSet.next();
-            return modelOne(resultSet);
+            return modelFromResultSet(resultSet);
         } catch (Exception e) {
             LOGGER.debug(e);
             LOGGER.error(e.getMessage());
@@ -82,13 +84,12 @@ public class OrderDAO implements Dao<Order> {
     public Order create(Order order) {
         try (Connection connection = DBUtils.getInstance().getConnection();
              Statement statement = connection.createStatement();) {
-            statement.executeUpdate("INSERT INTO orders(pId, customerId) values('" + order.getProductId()
-                    + "','" + order.getCustomerId() + "')");
-
-
+            statement.executeUpdate("INSERT INTO orders(pId, quantity, customerId) values('" + order.getProductId()
+                    + "','" + order.getQuantity()+ "','"+ order.getCustomerId() + "')");
             Order temp =readLatest();
-            statement.executeUpdate("INSERT INTO orderItems(orderId, pId) values('" + temp.getId()
-                    + "','" + order.getProductId() + "')");
+
+            statement.executeUpdate("INSERT INTO orderItems(orderId, pId, quantity, customerId) values('" + temp.getId()
+                    + "','" + temp.getProductId() + "','" +temp.getQuantity()+ "','" +temp.getCustomerId()+ "')");
 
             return temp;
         } catch (Exception e) {
@@ -115,7 +116,7 @@ public class OrderDAO implements Dao<Order> {
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery("SELECT * FROM orders where orderId = " + id);) {
             resultSet.next();
-            return modelFromResultSet(resultSet);
+            return modelOne(resultSet);
         } catch (Exception e) {
             LOGGER.debug(e);
             LOGGER.error(e.getMessage());
@@ -134,8 +135,11 @@ public class OrderDAO implements Dao<Order> {
     public Order update(Order order) {
         try (Connection connection = DBUtils.getInstance().getConnection();
              Statement statement = connection.createStatement();) {
-            statement.executeUpdate("update orders set pId ='" + order.getProductId() + "', customerId ='"
-                    + order.getCustomerId() + "' where orderId =" + order.getId());
+//            statement.executeUpdate("update orders set pId ='" + order.getProductId() + "', customerId ='"
+//                    + order.getCustomerId() + "' where orderId =" + order.getId());
+            LOGGER.info(order.getCustomerId());
+            statement.executeUpdate("INSERT INTO orderItems(orderId, pId, quantity, customerId) values('" + order.getId()
+                    + "','" + order.getProductId() + "','" +order.getQuantity()+ "','" +order.getCustomerId()+ "')");
             return readOrder(order.getId());
         } catch (Exception e) {
             LOGGER.debug(e);

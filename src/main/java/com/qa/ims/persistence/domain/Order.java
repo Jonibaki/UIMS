@@ -10,22 +10,25 @@ public class Order {
     private Long customerId;
     private double price;
     private String productName;
-    private List<Product> products = new ArrayList<Product>();
+    private Long quantity;
 
-    public Order(Long pId, Long customerId) {
+    public Order(Long pId, Long quantity,Long customerId) {
         this.setProductId(pId);
+        this.quantity = quantity;
         this.setCustomerId(customerId);
     }
 
-    public Order(Long orderId, Long pId, Long customerId) {
+    public Order(Long orderId, Long pId, Long quantity,Long customerId) {
         this.setId(orderId);
         this.setProductId(pId);
+        this.quantity = quantity;
         this.setCustomerId(customerId);
     }
-    public Order (Long orderId, Long pId, String productName, Double price){
+    public Order (Long orderId, Long pId, String productName, Long quantity, Double price){
         this.setId(orderId);
         this.setProductId(pId);
-        this.productName =productName;
+        this.productName = productName;
+        this.quantity = quantity;
         this.price = price;
     }
     public Long getId() {
@@ -52,11 +55,16 @@ public class Order {
         this.customerId = customerId;
     }
 
+    public Long getQuantity(){
+        return quantity;
+    }
+
     @Override
     public String toString() {
 
         //return "id:" + orderId + " product Id:" + pId + " customer Id:" + customerId;
-        return "id:" + orderId + " product Id:" + pId + " product Name :" + productName+ " price : "+price;
+        return "Order Id:" + orderId + " Product Id:" + pId + " Product Name :" + productName+ " Quantity : "+
+                quantity+" Price : £"+price*quantity;
     }
 
     @Override

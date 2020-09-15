@@ -45,13 +45,29 @@ public class OrderController implements CrudController<Order> {
     public Order create() {
         LOGGER.info("Please enter a product ID");
         Long pId = utils.getLong();
+        LOGGER.info("Please enter a quantity ID");
+        Long quantity = utils.getLong();
         LOGGER.info("Please enter a customer ID");
         Long customerId = utils.getLong();
-        Order order = orderDAO.create(new Order(pId, customerId));
+        Order order = orderDAO.create(new Order(pId, quantity, customerId));
         LOGGER.info("Order created");
         return order;
     }
+    //TODO: Further Implementation required
 
+    public Order addMoreItem(){
+        LOGGER.info("Please enter an order ID");
+        Long orderId = utils.getLong();
+        LOGGER.info("Please enter a product ID");
+        Long pId = utils.getLong();
+        LOGGER.info("Please enter a quantity");
+        Long quantity = utils.getLong();
+        LOGGER.info("Please enter a customer ID");
+        Long customerId = utils.getLong();
+
+        return orderDAO.addItem(new Order(orderId,pId,quantity,customerId));
+
+    }
     /**
      * Updates an existing order by taking in user input
      */
@@ -62,11 +78,12 @@ public class OrderController implements CrudController<Order> {
         Long id = utils.getLong();
         LOGGER.info("Please enter a product ID");
         Long pId = utils.getLong();
+        LOGGER.info("Please enter a quantity");
+        Long quantity = utils.getLong();
         LOGGER.info("Please enter a customer ID");
         Long customerId = utils.getLong();
-        Order order = orderDAO.update(new Order(id, pId, customerId));
-        LOGGER.info("Order Updated");
-        return order;
+
+        return orderDAO.addItem(new Order(id,pId,quantity,customerId));
     }
 
     /**

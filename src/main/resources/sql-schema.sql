@@ -18,15 +18,15 @@ CREATE TABLE IF NOT EXISTS `user_inventory_system`.`products` (
 CREATE TABLE IF NOT EXISTS `user_inventory_system`.`orders` (
     `orderId` INT(11) NOT NULL AUTO_INCREMENT,
     `customerId` INT(11) NOT NULL,
-    `pId` INT(11) NOT NULL,
     PRIMARY KEY (`orderId`),
     foreign key (`customerId`) references customers (`id`),
-    foreign key (`pId`) references products (`pId`)
 );
 CREATE TABLE IF NOT EXISTS `user_inventory_system`.`orderItems` (
     `orderId` INT(11) NOT NULL,
     `pId` INT(11),
     `quantity` INT(11),
+    `customerId` INT(11),
+    PRIMARY KEY (`orderId`, pId),
     foreign key (`orderId`) references orders (`orderId`),
-    foreign key (`pId`) references products (`pId`)
+    foreign key (`pId`) references products (`pId`),
 );
