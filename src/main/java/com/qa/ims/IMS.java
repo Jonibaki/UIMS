@@ -11,8 +11,6 @@ import com.qa.ims.persistence.domain.Domain;
 import com.qa.ims.utils.DBUtils;
 import com.qa.ims.utils.Utils;
 
-import java.util.Objects;
-
 public class IMS {
 
 	public static final Logger LOGGER = LogManager.getLogger();
@@ -21,7 +19,6 @@ public class IMS {
 	private final ProductController products;
 	private final OrderController orders;
 	private final Utils utils;
-	//private CrudController<?> active = null;
 
 	public IMS() {
 		this.utils = new Utils();
