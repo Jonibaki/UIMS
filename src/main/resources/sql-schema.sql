@@ -27,5 +27,5 @@ CREATE TABLE IF NOT EXISTS `user_inventory_system`.`orderItems` (
     `quantity` INT(11),
     PRIMARY KEY (`orderId`, pId),
     CONSTRAINT foreign key (`orderId`) references orders (`orderId`) ON DELETE CASCADE,
-    foreign key (`pId`) references products (`pId`)
+    CONSTRAINT foreign key (`pId`) references products (`pId`) ON DELETE CASCADE
 );
