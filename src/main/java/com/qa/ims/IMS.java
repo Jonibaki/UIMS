@@ -85,7 +85,6 @@ public class IMS {
 	}
 
 	public void doAction(CrudController<?> crudController, Action action) {
-		//TODO: fix the logic here
 			switch (action) {
 				case CREATE:
 					crudController.create();
