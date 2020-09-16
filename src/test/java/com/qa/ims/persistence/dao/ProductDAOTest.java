@@ -23,31 +23,31 @@ public class ProductDAOTest {
 
     @Test
     public void testCreate() {
-        final Product created = new Product(2L, "Pepsi", "Drinks",0.0);
+        final Product created = new Product(2L, "Pepsi", "Drinks",2.5);
         assertEquals(created, DAO.create(created));
     }
 
     @Test
     public void testReadAll() {
         List<Product> expected = new ArrayList<>();
-        expected.add(new Product(1L, "Pepsi", "Drink",0.0));
+        expected.add(new Product(1L, "Pepsi", "Drink",2.5));
         assertEquals(expected, DAO.readAll());
     }
 
     @Test
     public void testReadLatest() {
-        assertEquals(new Product(1L, "Pepsi", "Drink",0.0), DAO.readLatest());
+        assertEquals(new Product(1L, "Pepsi", "Drink",2.5), DAO.readLatest());
     }
 
     @Test
     public void testRead() {
         final long ID = 1L;
-        assertEquals(new Product(ID, "Pepsi", "Drink",0.0), DAO.readProduct(ID));
+        assertEquals(new Product(ID, "Pepsi", "Drink",2.5), DAO.readProduct(ID));
     }
 
     @Test
     public void testUpdate() {
-        final Product updated = new Product(1L, "Pepsi", "Drink",0.0);
+        final Product updated = new Product(1L, "Coke", "Bottle",2.5);
         assertEquals(updated, DAO.update(updated));
 
     }
