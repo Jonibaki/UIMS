@@ -43,30 +43,11 @@ public class OrderController implements CrudController<Order> {
      */
     @Override
     public Order create() {
-        LOGGER.info("Please enter a product ID");
-        Long pId = utils.getLong();
-        LOGGER.info("Please enter a quantity ID");
-        Long quantity = utils.getLong();
         LOGGER.info("Please enter a customer ID");
         Long customerId = utils.getLong();
-        Order order = orderDAO.create(new Order(pId, quantity, customerId));
+        Order order = orderDAO.create(new Order(customerId));
         LOGGER.info("Order created");
         return order;
-    }
-    //TODO: Further Implementation required
-
-    public Order addMoreItem(){
-        LOGGER.info("Please enter an order ID");
-        Long orderId = utils.getLong();
-        LOGGER.info("Please enter a product ID");
-        Long pId = utils.getLong();
-        LOGGER.info("Please enter a quantity");
-        Long quantity = utils.getLong();
-        LOGGER.info("Please enter a customer ID");
-        Long customerId = utils.getLong();
-
-        return orderDAO.addItem(new Order(orderId,pId,quantity,customerId));
-
     }
     /**
      * Updates an existing order by taking in user input
@@ -74,16 +55,14 @@ public class OrderController implements CrudController<Order> {
     @Override
     public Order update() {
         //TODO: require to update this section
-        LOGGER.info("Please enter the id of the order you would like to update");
+        LOGGER.info("Please enter the id of the order you would like to update/add");
         Long id = utils.getLong();
         LOGGER.info("Please enter a product ID");
         Long pId = utils.getLong();
         LOGGER.info("Please enter a quantity");
         Long quantity = utils.getLong();
-        LOGGER.info("Please enter a customer ID");
-        Long customerId = utils.getLong();
 
-        return orderDAO.addItem(new Order(id,pId,quantity,customerId));
+        return orderDAO.update(new Order(id,pId,quantity));
     }
 
     /**
@@ -93,9 +72,25 @@ public class OrderController implements CrudController<Order> {
      */
     @Override
     public int delete() {
-        LOGGER.info("Please enter the ID of the order you would like to delete");
-        Long id = utils.getLong();
-        return orderDAO.delete(id);
+        LOGGER.info("Please type \"item\" to delete an item or \"order\" to delete an order");
+        String decision =utils.getString();
+
+        switch(decision){
+            case "order":
+                LOGGER.info("Please enter the ID of the order you would like to delete");
+                Long id = utils.getLong();
+                return orderDAO.delete(id);
+            case "item":
+                LOGGER.info("Please enter the ID of the order you would like to delete");
+                Long oid = utils.getLong();
+                LOGGER.info("Please enter the ID of the product you would like to delete");
+                Long pid = utils.getLong();
+                return orderDAO.delete(oid,pid);
+            default:
+                LOGGER.info("Invalid choice");
+                break;
+        }
+        return  0;
     }
 
 }

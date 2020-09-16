@@ -1,35 +1,37 @@
 package com.qa.ims.persistence.domain;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Order {
 
     private Long orderId;
     private Long pId;
     private Long customerId;
     private double price;
-    private String productName;
+    private String productName, customer;
     private Long quantity;
+    private  double total;
 
-    public Order(Long pId, Long quantity,Long customerId) {
-        this.setProductId(pId);
-        this.quantity = quantity;
+
+    public Order(Long customerId) {
         this.setCustomerId(customerId);
     }
-
-    public Order(Long orderId, Long pId, Long quantity,Long customerId) {
+    public Order(Long orderId,Long customerId) {
+        this.setId(orderId);
+        this.setCustomerId(customerId);
+    }
+    public Order(Long orderId, Long pId, Long quantity) {
         this.setId(orderId);
         this.setProductId(pId);
         this.quantity = quantity;
-        this.setCustomerId(customerId);
     }
-    public Order (Long orderId, Long pId, String productName, Long quantity, Double price){
+
+    public Order (Long orderId, Long pId, String customer, String productName, Long quantity, Double price, Double total){
         this.setId(orderId);
         this.setProductId(pId);
+        this.customer = customer;
         this.productName = productName;
         this.quantity = quantity;
         this.price = price;
+        this.total = total;
     }
     public Long getId() {
         return orderId;
@@ -61,10 +63,8 @@ public class Order {
 
     @Override
     public String toString() {
-
-        //return "id:" + orderId + " product Id:" + pId + " customer Id:" + customerId;
-        return "Order Id:" + orderId + " Product Id:" + pId + " Product Name :" + productName+ " Quantity : "+
-                quantity+" Price : £"+price*quantity;
+        return "\t oId\t\t: " + orderId + "\n\t pId\t\t: " + pId + "\n\t customer\t: "+customer + "\n\t pName \t\t: " + productName+ "\n\t Qty\t\t: "+
+                quantity+"\n\t price\t\t: £"+price+ "\n\t total\t\t: £"+total+"\n";
     }
 
     @Override
