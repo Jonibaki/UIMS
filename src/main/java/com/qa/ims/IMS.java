@@ -21,7 +21,7 @@ public class IMS {
 	private final ProductController products;
 	private final OrderController orders;
 	private final Utils utils;
-	private CrudController<?> active = null;
+	//private CrudController<?> active = null;
 
 	public IMS() {
 		this.utils = new Utils();
@@ -57,7 +57,7 @@ public class IMS {
 		boolean changeDomain = false;
 		do {
 
-			//CrudController<?> active = null;
+			CrudController<?> active = null;
 			switch (domain) {
 			case CUSTOMER:
 				active = this.customers;
@@ -74,7 +74,7 @@ public class IMS {
 				break;
 			}
 
-			LOGGER.info("What would you like to do with " + domain.name().toLowerCase() + ":");
+			LOGGER.info("\nWhat would you like to do with " + domain.name().toLowerCase() + ":");
 
 			Action.printActions();
 			Action action = Action.getAction(utils);
@@ -89,7 +89,6 @@ public class IMS {
 
 	public void doAction(CrudController<?> crudController, Action action) {
 		//TODO: fix the logic here
-	//	if(crudController.equals(orders)){
 			switch (action) {
 				case CREATE:
 					crudController.create();
@@ -103,37 +102,11 @@ public class IMS {
 				case DELETE:
 					crudController.delete();
 					break;
-				case ADD:
-					orders.addMoreItem();
-					break;
-				case DELETEITEM:
-					break;
 				case RETURN:
 					break;
 				default:
 					break;
-			}
-
-//		}else{
-//			switch (action) {
-//				case CREATE:
-//					crudController.create();
-//					break;
-//				case READ:
-//					crudController.readAll();
-//					break;
-//				case UPDATE:
-//					crudController.update();
-//					break;
-//				case DELETE:
-//					crudController.delete();
-//					break;
-//				case RETURN:
-//					break;
-//				default:
-//					break;
-//			}
-//		}
+		}
 	}
 
 }
