@@ -45,6 +45,11 @@ public class Order {
         return pId;
     }
 
+
+    public double getTotal() {
+        return total;
+    }
+
     public void setProductId(long pId) {
         this.pId = pId;
     }

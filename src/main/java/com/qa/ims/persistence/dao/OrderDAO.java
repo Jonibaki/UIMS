@@ -47,8 +47,10 @@ public class OrderDAO implements Dao<Order> {
              Statement statement = connection.createStatement();
              //ResultSet resultSet = statement.executeQuery("select * from orders");
              //ResultSet resultSet = statement.executeQuery("select orders.orderId,products.pId, product_name, price, quantity, quantity*price as total from orders, orderItems, products, customers where orders.orderId = orderItems.orderId and products.pId = orderItems.pId order by orders.orderId");
-             ResultSet resultSet = statement.executeQuery("select orders.orderId, orderItems.pId, concat(customers.first_name,\" \", customers.surname) as customer, products.product_name, products.price, quantity,quantity*price as total from orders, orderItems, products, customers where orders.orderId = " +
-                     "orderItems.orderId and products.pId = orderItems.pId and orders.customerId= customers.id order by orders.orderId;");
+             ResultSet resultSet = statement.executeQuery("select orders.orderId, orderItems.pId, concat(customers.first_name,\" \", " +
+                     "customers.surname) as customer, products.product_name, products.price, " +
+                     "quantity,quantity*price as total from orders, orderItems, products, customers where orders.orderId = " +
+                     "orderItems.orderId and products.pId = orderItems.pId and orders.customerId= customers.id order by orders.orderId, orderItems.pId;");
 //             ResultSet resultSet = statement.executeQuery("select orders.orderId, products.pId, products.product_name, " +
 //                     " orders.quantity, products.price from orders JOIN products ON orders.orderId= products.pId");
         )
@@ -110,25 +112,12 @@ public class OrderDAO implements Dao<Order> {
         }
         return null;
     }
-    public Order addItem(Order order) {
-        try (Connection connection = DBUtils.getInstance().getConnection();
-             Statement statement = connection.createStatement();) {
-            statement.executeUpdate("INSERT INTO orderItems(orderId, pId) values('" + order.getId()
-                    + "','" + order.getProductId() + "')");
-            return readLatest();
-        } catch (Exception e) {
-            LOGGER.debug(e);
-            LOGGER.error(e.getMessage());
-        }
-        return null;
-    }
-
     public Order readOrder(Long id) {
         try (Connection connection = DBUtils.getInstance().getConnection();
              Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery("SELECT * FROM orders where orderId = " + id);) {
             resultSet.next();
-            return modelOne(resultSet);
+            return modelFromResultSet(resultSet);
         } catch (Exception e) {
             LOGGER.debug(e);
             LOGGER.error(e.getMessage());
