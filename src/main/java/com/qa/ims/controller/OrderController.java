@@ -32,9 +32,26 @@ public class OrderController implements CrudController<Order> {
     @Override
     public List<Order> readAll() {
         List<Order> orders = orderDAO.readAll();
-        for (Order order : orders) {
-            LOGGER.info(order.toString());
-        }
+//        for (Order order : orders) {
+//            LOGGER.info(order.toString());
+//        }
+//        double sum;
+//        for(int i=0; i<orders.size();i++){
+//            sum = 0.0;
+//            sum += orders.get(i).getTotal();
+//            LOGGER.info(orders.get(i).toString());
+//            for(int j =i+1; j<orders.size();j++){
+//                if(orders.get(i).getId()==orders.get(j).getId()){
+//                    LOGGER.info(orders.get(j).toString());
+//                    sum+=orders.get(j).getTotal();
+//                }else{
+//                    LOGGER.info("\tNet Gross: "+sum);
+//                    break;
+//                }
+//            }
+//
+//        }
+        orders.stream().forEach(LOGGER::info);
         return orders;
     }
 
@@ -54,8 +71,7 @@ public class OrderController implements CrudController<Order> {
      */
     @Override
     public Order update() {
-        //TODO: require to update this section
-        LOGGER.info("Please enter the id of the order you would like to update/add");
+        LOGGER.info("Please enter the id of the order you would like to add");
         Long id = utils.getLong();
         LOGGER.info("Please enter a product ID");
         Long pId = utils.getLong();

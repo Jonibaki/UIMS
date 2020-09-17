@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS `user_inventory_system`.`orders` (
     `orderId` INT(11) NOT NULL AUTO_INCREMENT,
     `customerId` INT(11) NOT NULL,
     PRIMARY KEY (`orderId`),
-    foreign key (`customerId`) references customers (`id`)
+     CONSTRAINT foreign key (`customerId`) references customers (`id`) ON DELETE CASCADE
 );
 CREATE TABLE IF NOT EXISTS `user_inventory_system`.`orderItems` (
     `orderId` INT(11) NOT NULL,
