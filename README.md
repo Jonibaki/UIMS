@@ -1,7 +1,6 @@
-Coverage: 34%
-# Project Title
+# User Inventory Management System
 
-One Paragraph of project description goes here
+The main objective of the project is to build an application which allows user to interact with the application vai command line. The user should be able to manage a data inventory system with different key command.
 
 ## Getting Started
 
@@ -71,10 +70,13 @@ Add additional notes about how to deploy this on a live system
 ## Versioning
 
 We use [SemVer](http://semver.org/) for versioning.
+![](https://j.gifs.com/nx1Ap4.gif)
 
 ## Authors
 
 * **Chris Perrins** - *Initial work* - [christophperrins](https://github.com/christophperrins)
+
+* **MD Abu Joni** - *Lead Developer* - [christophperrins](https://github.com/mjoni)
 
 ## License
 
@@ -84,6 +86,4 @@ This project is licensed under the MIT license - see the [LICENSE.md](LICENSE.md
 
 ## Acknowledgments
 
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
+* Thank you QA and QA trainees for providing the interesting project. Thank you Chris for easy implementation of the project. I thank myself for being a hard working asset.  
