@@ -45,14 +45,11 @@ public class OrderDAO implements Dao<Order> {
     public List<Order> readAll() {
         try (Connection connection = DBUtils.getInstance().getConnection();
              Statement statement = connection.createStatement();
-             //ResultSet resultSet = statement.executeQuery("select * from orders");
-             //ResultSet resultSet = statement.executeQuery("select orders.orderId,products.pId, product_name, price, quantity, quantity*price as total from orders, orderItems, products, customers where orders.orderId = orderItems.orderId and products.pId = orderItems.pId order by orders.orderId");
              ResultSet resultSet = statement.executeQuery("select orders.orderId, orderItems.pId, concat(customers.first_name,\" \", " +
                      "customers.surname) as customer, products.product_name, products.price, " +
                      "quantity,quantity*price as total from orders, orderItems, products, customers where orders.orderId = " +
                      "orderItems.orderId and products.pId = orderItems.pId and orders.customerId= customers.id order by orders.orderId, orderItems.pId;");
-//             ResultSet resultSet = statement.executeQuery("select orders.orderId, products.pId, products.product_name, " +
-//                     " orders.quantity, products.price from orders JOIN products ON orders.orderId= products.pId");
+
         )
        {
             List<Order> orders = new ArrayList<>();
@@ -89,8 +86,6 @@ public class OrderDAO implements Dao<Order> {
     public Order create(Order order) {
         try (Connection connection = DBUtils.getInstance().getConnection();
              Statement statement = connection.createStatement();) {
-//            statement.executeUpdate("INSERT INTO orders(pId, quantity, customerId) values('" + order.getProductId()
-//                    + "','" + order.getQuantity()+ "','"+ order.getCustomerId() + "')");
             statement.executeUpdate("INSERT INTO orders(customerId) values('"+order.getCustomerId() + "')");
             Order temp =readLatest();
 
@@ -102,8 +97,6 @@ public class OrderDAO implements Dao<Order> {
 
             statement.executeUpdate("INSERT INTO orderItems(orderId, pId, quantity) values('" + temp.getId()
                     + "','" + pId + "','" +quantity+"')");
-//            statement.executeUpdate("INSERT INTO orderItems(orderId, pId, quantity, customerId) values('" + temp.getId()
-//                    + "','" + temp.getProductId() + "','" +temp.getQuantity()+ "','" +temp.getCustomerId()+ "')");
 
             return temp;
         } catch (Exception e) {

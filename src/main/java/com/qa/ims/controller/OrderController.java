@@ -35,23 +35,26 @@ public class OrderController implements CrudController<Order> {
 //        for (Order order : orders) {
 //            LOGGER.info(order.toString());
 //        }
-//        double sum;
+        orders.stream().forEach(LOGGER::info);
+//        double sum =0.0;
 //        for(int i=0; i<orders.size();i++){
-//            sum = 0.0;
 //            sum += orders.get(i).getTotal();
 //            LOGGER.info(orders.get(i).toString());
+//
 //            for(int j =i+1; j<orders.size();j++){
-//                if(orders.get(i).getId()==orders.get(j).getId()){
-//                    LOGGER.info(orders.get(j).toString());
+//                if(orders.get(i).getId().equals(orders.get(j).getId())){
+//                    //LOGGER.info(orders.get(j).toString());
 //                    sum+=orders.get(j).getTotal();
+//                    break;
 //                }else{
-//                    LOGGER.info("\tNet Gross: "+sum);
+//                    sum= 0.0;
 //                    break;
 //                }
 //            }
 //
+//            LOGGER.info("\tNet Gross: £"+sum);
+
 //        }
-        orders.stream().forEach(LOGGER::info);
         return orders;
     }
 
