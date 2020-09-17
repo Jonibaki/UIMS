@@ -70,13 +70,15 @@ Add additional notes about how to deploy this on a live system
 ## Versioning
 
 We use [SemVer](http://semver.org/) for versioning.
+
+## DEMO
 ![](https://j.gifs.com/nx1Ap4.gif)
 
 ## Authors
 
 * **Chris Perrins** - *Initial work* - [christophperrins](https://github.com/christophperrins)
 
-* **MD Abu Joni** - *Lead Developer* - [christophperrins](https://github.com/mjoni)
+* **MD Abu Joni** - *Lead Developer* - [mjoni](https://github.com/mjoni)
 
 ## License
 
@@ -86,4 +88,4 @@ This project is licensed under the MIT license - see the [LICENSE.md](LICENSE.md
 
 ## Acknowledgments
 
-* Thank you QA and QA trainees for providing the interesting project. Thank you Chris for easy implementation of the project. I thank myself for being a hard working asset.  
+Thank you QA and QA trainees for providing the interesting project. Thank you Chris for easy implementation of the project. I thank myself for being always a hard working asset.  
