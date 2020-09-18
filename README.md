@@ -38,30 +38,21 @@ Explain how to run the automated tests for this system. Break down into which te
 
 ### Unit Tests 
 
-Explain what these tests test, why and how to run them
+Junit testing has been performed across the project
 
-```
-Give an example
-```
-
-### Integration Tests 
-Explain what these tests test, why and how to run them
-
-```
-Give an example
-```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
 
 ## Deployment
 
-Add additional notes about how to deploy this on a live system
+Notes about how to deploy this on a live system:
+step 1 : add the dependency
+<dependency>
+  <groupId>com.qa.ims</groupId>
+  <artifactId>ims</artifactId>
+  <version>0.0.1</version>
+</dependency>
+
+step 2: Install Maven
+mvn install
 
 ## Built With
 
