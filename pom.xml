@@ -141,8 +141,15 @@
 				<version>3.0.0-M1</version>
 			</plugin>
 		</plugins>
-	</build>
 
+	</build>
+	<distributionManagement>
+		<repository>
+			<id>github</id>
+			<name>GitHub OWNER Apache Maven Packages</name>
+			<url>https://maven.pkg.github.com/mjoni/IMS-Starter</url>
+		</repository>
+	</distributionManagement>
 
 
 </project>
