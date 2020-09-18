@@ -25,14 +25,14 @@ Junit testing has been performed across the project
 ## Deployment
 
 Notes about how to deploy this on a live system:
-..step 1 : add the dependency
+* step 1 : add the dependency
 <dependency>
   <groupId>com.qa.ims</groupId>
   <artifactId>ims</artifactId>
   <version>0.0.1</version>
 </dependency>
 
-..step 2: Install Maven
+* step 2: Install Maven
 mvn install
 
 ## Built With
