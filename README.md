@@ -8,50 +8,31 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-What things you need to install the software and how to install them
+Mysql 5.7
+Java
 
-```
-Give examples
-```
-
-### Installing
-
-A step by step series of examples that tell you how to get a development env running
-
-Say what the step will be
-
-```
-Give the example
-```
-
-And repeat
-
-```
-until finished
-```
-
-End with an example of getting some data out of the system or using it for a little demo
 
 ## Running the tests
+```
+mvn clean package
+```
 
-Explain how to run the automated tests for this system. Break down into which tests and what they do
 
 ### Unit Tests 
 
 Junit testing has been performed across the project
 
-
 ## Deployment
 
 Notes about how to deploy this on a live system:
-step 1 : add the dependency
+..step 1 : add the dependency
 <dependency>
   <groupId>com.qa.ims</groupId>
   <artifactId>ims</artifactId>
   <version>0.0.1</version>
 </dependency>
 
-step 2: Install Maven
+..step 2: Install Maven
 mvn install
 
 ## Built With
